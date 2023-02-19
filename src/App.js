@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import React, { useState } from "react";
 import './App.css';
+import Navbar from './components/NavBar';
+import Hero from './components/Hero/Hero';
+import Product from './components/Product/Product';
+import { productsData } from './components/Product/productdata'
+import { Container, Row } from 'react-bootstrap';
+
+
 
 function App() {
+  const [cartItems, setCartItems] = useState([]);
+
+const addToCart = (product) => {
+  setCartItems([...cartItems, product]);
+};
+
+const removeFromCart = (product) => {
+  const updatedCartItems = cartItems.filter((item) => item.id !== product.id);
+  setCartItems(updatedCartItems);
+};
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Navbar cartItems={cartItems}/>
+      <Hero/>
+      <Container>
+      <div className="row">
+        {productsData.map((product)=> (
+            <div className="col-md-3 mb-3" key={product.id}>
+              <Product product={product} onAddToCart={addToCart} onRemoveFromCart={removeFromCart} cartItems={cartItems} />
+            </div>
+          ))}
+      </div>
+      </Container>
     </div>
   );
 }
