@@ -36,7 +36,7 @@ const Product = ({ product, onAddToCart, onRemoveFromCart }) => {
         <Card.Title>{product.name}</Card.Title>
         <Card.Text>{product.description}</Card.Text>
         <div>{createStarRating(product.rating)}</div>
-        <Card.Text>{product.price}</Card.Text>
+        <Card.Text>Rs {product.price}</Card.Text>
         <Button variant={addedToCart ? "danger" : "primary"} onClick={handleAddToCart}>
           {addedToCart ? "Remove from Cart" : "Add to Cart"}
         </Button>
